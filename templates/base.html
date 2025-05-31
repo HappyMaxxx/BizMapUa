@@ -1,0 +1,47 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Hackaton{% endblock %}</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'mainapp/css/styles.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- <link rel="icon" href="{% static 'med/img/base/icon.png' %}" type="image/png"/> -->
+    {% block head %} {% endblock %}
+</head>
+
+<body>
+    <header>
+        <h1>Hackaton</h1>
+        <button class="burger-menu set_button" aria-label="Toggle navigation">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+        <button class="theme-toggle set_button" aria-label="Toggle theme">
+            <i class="fas fa-sun sun-icon"></i>
+            <i class="fas fa-moon moon-icon"></i>
+        </button>
+    </header>
+
+    <nav class="nav-menu">
+        <ul>
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li><a href="{% url 'auth' %}">Login</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <div class="content">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </div>
+    <footer>
+        <p>&copy; {% now "Y" %} Hackaton. All rights reserved.</p>
+    </footer>
+    
+    <script src="{% static 'mainapp/js/theme-toggle.js' %}"></script>
+    <script src="{% static 'mainapp/js/burger-menu.js' %}"></script>
+</body>
+</html>

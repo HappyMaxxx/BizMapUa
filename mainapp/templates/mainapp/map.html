@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <style>
+    #map { width: 850px; height: 600px; border: 1px solid #ccc; }
+  </style>
+{% endblock %}
+
+{% block content %}
+  <div id="map"></div>
+
+  <script src="{% static 'mainapp/js/map.js' %}"></script>
+{% endblock %}
