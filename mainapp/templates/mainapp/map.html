@@ -10,7 +10,17 @@
 {% endblock %}
 
 {% block content %}
-  <div id="map"></div>
+  <a href="{% url 'home' %}" style="position: absolute; top: 15%; left: 2%;">
+    <img src="{% static 'mainapp/img/home/strilka.png' %}">
+  </a>
 
+  <div class="container">
+    <div class="content">
+      <div id="map"></div>
+    </div>
+  </div>
+
+  <img src="{% static 'mainapp/img/home/map_chel.png' %}" 
+  style="position: fixed; right: 1%; bottom: 0%;">
   <script src="{% static 'mainapp/js/map.js' %}"></script>
 {% endblock %}

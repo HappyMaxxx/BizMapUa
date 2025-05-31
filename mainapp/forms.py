@@ -35,7 +35,7 @@ class LoginUserForm(AuthenticationForm):
 class BuisnesCreationForm(forms.ModelForm):
     class Meta:
         model = Businesse
-        fields = ['region', 'city', 'name', 'description', 'email', 'phone', 'site_page', 'category', 'tags']
+        fields = ['region', 'city', 'name', 'description', 'email', 'phone', 'insta', 'category', 'tags']
         
         labels = {
             'region': 'Регіон',
@@ -44,7 +44,7 @@ class BuisnesCreationForm(forms.ModelForm):
             'description': 'Опис',
             'email': 'Електронна пошта',
             'phone': 'Телефон',
-            'site_page': 'Веб-сторінка',
+            'insta': 'Інстаграм',
             'category': 'Категорія',
             'tags': 'Теги'
         }
@@ -58,10 +58,10 @@ class BuisnesCreationForm(forms.ModelForm):
             'name': forms.TextInput(attrs={'class': 'form-control'}),
             'email': forms.EmailInput(attrs={'class': 'form-control'}),
             'phone': forms.TextInput(attrs={'class': 'form-control'}),
-            'site_page': forms.URLInput(attrs={'class': 'form-control'}),
+            'insta': forms.TextInput(attrs={'class': 'form-control'}),
         }
 
         required = {
-            'site_page': False,
             'tags': False,
+            'insta': False,
         }

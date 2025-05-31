@@ -22,6 +22,21 @@
     {% empty %}
         <p>Фотографії відсутні</p>
     {% endfor %}
+
+    <div class="sa_buttons">
+        <a href="{% url 'approve_buisnes' bisnes_id=business.id %}" class="btn btn-success">
+            <button>
+                Схвалити
+            </button>
+        </a>
+        <a href="{% url 'decline_buisnes' bisnes_id=business.id %}" class="btn btn-danger"
+            onclick="return confirm('Ви впевнені, що хочете видалити цей бізнес?');">
+            <button>
+            Видалити
+            </button>
+        </a>
+    </div>
+    
 {% endfor %}
 
 {% endblock %}

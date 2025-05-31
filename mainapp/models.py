@@ -42,10 +42,9 @@ class Businesse(models.Model):
     description = models.TextField(blank=True)
     email = models.CharField(max_length=50, blank=True, null=True)
     phone = models.CharField(max_length=50, blank=True, null=True)
-    site_page = models.CharField(max_length=100, blank=True, null=True)
     category = models.CharField(max_length=21, choices=CATEGORY_CHOICES, default='pending')
     tags = models.CharField(max_length=255, blank=True)
-
+    insta = models.CharField(max_length=255, blank=True)
     status = models.CharField(max_length=20, choices=[('pending', 'Pending'),
                                                       ('added', 'Added')], default='pending')
     time_create = models.DateTimeField(auto_now_add=True)

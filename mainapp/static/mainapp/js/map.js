@@ -40,6 +40,24 @@ var map = L.map('map', {
               var regionCode = feature.properties.koatuu || 'unknown';
               window.location.href = '/regions/' + encodeURIComponent(regionCode);
             });
+
+            layer.on('mouseover', function(e) {
+                layer.setStyle({
+                    color: '#3377ff', 
+                    weight: 4,        
+                    fillOpacity: 0.5 
+                });
+                // layer.openPopup(); 
+            });
+
+            layer.on('mouseout', function(e) {
+                layer.setStyle({
+                    color: '#3388ff', 
+                    weight: 2,       
+                    fillOpacity: 0.2  
+                });
+                // layer.closePopup(); 
+            });
           }
         }).addTo(map);
       })

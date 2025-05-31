@@ -7,15 +7,17 @@ from .forms import RegisterUserForm, LoginUserForm, BuisnesCreationForm
 
 from django.db import transaction
 from django.contrib.auth.models import User
-from .models import Region, Businesse, BuisnessePhoto
+from .models import Region, Businesse, BuisnessePhoto, Evaluation
 
 from django.views import View
 from django.views.generic import CreateView
 from django.contrib.auth import login, logout
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.csrf import csrf_protect
 
 from django.core.files.uploadedfile import UploadedFile
+from django.core.exceptions import ValidationError
 
 import json
 
@@ -82,9 +84,13 @@ def mapview(request):
 
 def regionview(request, koatuu):
     region = Region.objects.get(koatuu=koatuu)
+    buisneses = Businesse.objects.filter(region=region, status='added')
+    count = len(buisneses)
 
     data = {
         'region': region,
+        'businesses': buisneses,
+        'count': count,
     }
 
     return render(request, 'mainapp/region.html', data)
@@ -125,6 +131,63 @@ def adminpanelview(request):
         }
 
         return render(request, 'mainapp/adminpanel.html', data)
+
+def approve_buisnes(request, bisnes_id):
+    bisnes = Businesse.objects.get(id=bisnes_id)
+    bisnes.status = 'added'
+    bisnes.save()
+
+    return redirect('adminpanel')
+
+def decline_buisnes(request, bisnes_id):
+    bisnes = Businesse.objects.get(id=bisnes_id)
+    bisnes.delete()
+
+    return redirect('adminpanel')
+
+@login_required
+@csrf_protect
+def rate_business(request):
+    if request.method == 'POST':
+        business_id = request.POST.get('business_id')
+        rating = request.POST.get('rating')
+        
+        try:
+            business = Businesse.objects.get(id=business_id)
+            rating = float(rating)
+            if not 1 <= rating <= 5:
+                return JsonResponse({'success': False, 'error': 'Оцінка повинна бути від 1 до 5'}, status=400)
+
+            evaluation, created = Evaluation.objects.update_or_create(
+                user=request.user,
+                business=business,
+                defaults={'rating': int(rating)}
+            )
+            business.update_average_rating()
+
+            return JsonResponse({
+                'success': True,
+                'new_average_rating': business.average_rating
+            })
+        except Businesse.DoesNotExist:
+            return JsonResponse({'success': False, 'error': 'Бізнес не знайдено'}, status=404)
+        except ValidationError:
+            return JsonResponse({'success': False, 'error': 'Невалідна оцінка'}, status=400)
+        except Exception as e:
+            return JsonResponse({'success': False, 'error': str(e)}, status=500)
+    return JsonResponse({'success': False, 'error': 'Невалідний метод запиту'}, status=400)
+
+def buisnesview(request, buisnes_id):
+    try:
+        busines = Businesse.objects.get(id=buisnes_id)
+    except:
+        return redirect('404')
+    
+    data = {
+        'busines': busines
+    }
+
+    return render(request, 'mainapp/buisnes.html')
 
 def check_username(request):
     if request.method == 'POST':
