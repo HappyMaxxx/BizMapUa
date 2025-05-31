@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+{% for business in pending_buisneses %}
+    <h2>{{ business.name }}   ({{business.user.username}})</h2>
+    <p>Опис: {{ business.description }}</p>
+    <p>Регіон: {{ business.region }} | Місто: {{ business.city }}</p>
+    <p>Пошта: {{ business.email }} | Телефон: {{ business.phone }}</p>
+    {% if business.site_page %} <p>Сайт: {{business.site_page}}</p> {% endif %}
+
+    <p>Категорія: {{ business.category }}</p>
+    <p>Теги: {{ business.tags }}</p>
+
+    <p>{{ business.time_create }}</p>
+    
+    {% for photo in business.buisnessephoto_set.all %}
+        {% if photo.img %}
+            <img src="{{ photo.get_img_url }}" alt="Photo of {{ business.name }}" style="max-width: 200px;">
+        {% endif %}
+    {% empty %}
+        <p>Фотографії відсутні</p>
+    {% endfor %}
+{% endfor %}
+
+{% endblock %}

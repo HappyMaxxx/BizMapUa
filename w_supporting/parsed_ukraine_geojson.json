@@ -1,0 +1,127 @@
+[
+  {
+    "koatuu": "7100000000",
+    "name": "Черкаська область",
+    "name:en": "Cherkasy Oblast"
+  },
+  {
+    "koatuu": "7400000000",
+    "name": "Чернігівська область",
+    "name:en": "Chernihiv Oblast"
+  },
+  {
+    "koatuu": "7300000000",
+    "name": "Чернівецька область",
+    "name:en": "Chernivtsi Oblast"
+  },
+  {
+    "koatuu": "0100000000",
+    "name": "Автономна Республіка Крим",
+    "name:en": "Autonomous Republic of Crimea"
+  },
+  {
+    "koatuu": "1200000000",
+    "name": "Дніпропетровська область",
+    "name:en": "Dnipropetrovsk Oblast"
+  },
+  {
+    "koatuu": "1400000000",
+    "name": "Донецька область",
+    "name:en": "Donetsk Oblast"
+  },
+  {
+    "koatuu": "2600000000",
+    "name": "Івано-Франківська область",
+    "name:en": "Ivano-Frankivsk Oblast"
+  },
+  {
+    "koatuu": "6300000000",
+    "name": "Харківська область",
+    "name:en": "Kharkiv Oblast"
+  },
+  {
+    "koatuu": "6500000000",
+    "name": "Херсонська область",
+    "name:en": "Kherson Oblast"
+  },
+  {
+    "koatuu": "6800000000",
+    "name": "Хмельницька область",
+    "name:en": "Khmelnytskyi Oblast"
+  },
+  {
+    "koatuu": "3200000000",
+    "name": "Київська область",
+    "name:en": "Kiev Oblast"
+  },
+  {
+    "koatuu": "3500000000",
+    "name": "Кіровоградська область",
+    "name:en": "Kirovohrad Oblast"
+  },
+  {
+    "koatuu": "4400000000",
+    "name": "Луганська область",
+    "name:en": "Luhansk Oblast"
+  },
+  {
+    "koatuu": "4600000000",
+    "name": "Львівська область",
+    "name:en": "Lviv Oblast"
+  },
+  {
+    "koatuu": "4800000000",
+    "name": "Миколаївська область",
+    "name:en": "Mykolaiv Oblast"
+  },
+  {
+    "koatuu": "5100000000",
+    "name": "Одеська область",
+    "name:en": "Odessa Oblast"
+  },
+  {
+    "koatuu": "5300000000",
+    "name": "Полтавська область",
+    "name:en": "Poltava Oblast"
+  },
+  {
+    "koatuu": "5600000000",
+    "name": "Рівненська область",
+    "name:en": "Rivne Oblast"
+  },
+  {
+    "koatuu": "5900000000",
+    "name": "Сумська область",
+    "name:en": "Sumy Oblast"
+  },
+  {
+    "koatuu": "6100000000",
+    "name": "Тернопільська область",
+    "name:en": "Ternopil Oblast"
+  },
+  {
+    "koatuu": "0500000000",
+    "name": "Вінницька область",
+    "name:en": "Vinnytsia Oblast"
+  },
+  {
+    "koatuu": "0700000000",
+    "name": "Волинська область",
+    "name:en": "Volyn Oblast"
+  },
+  {
+    "koatuu": "2100000000",
+    "name": "Закарпатська область",
+    "name:en": "Zakarpattia Oblast"
+  },
+  {
+    "koatuu": "2300000000",
+    "name": "Запорізька область",
+    "name:en": "Zaporizhia Oblast"
+  },
+  {
+    "koatuu": "1800000000",
+    "name": "Житомирська область",
+    "name:en": "Zhytomyr Oblast"
+  }
+]

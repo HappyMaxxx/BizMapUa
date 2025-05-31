@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Region
+from .models import Region, Businesse, Evaluation
 
 @admin.register(Region)
 class RegionAdmin(admin.ModelAdmin):
@@ -7,3 +7,15 @@ class RegionAdmin(admin.ModelAdmin):
     list_filter = ('koatuu', 'value', 'name')
     search_fields = ('name', 'koatuu') 
     ordering = ('name',)
+
+@admin.register(Businesse)
+class RegionAdmin(admin.ModelAdmin):
+    list_display = ('user', 'region', 'city', 'status')  
+    list_filter = ('user', 'region')
+    search_fields = ('user', 'name') 
+
+@admin.register(Evaluation)
+class RegionAdmin(admin.ModelAdmin):
+    list_display = ('user', 'rating', 'business', 'created_at')  
+    list_filter = ('user', 'business', 'rating')
+    search_fields = ('user', 'business') 

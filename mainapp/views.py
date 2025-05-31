@@ -1,18 +1,23 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
+from django.http import JsonResponse
 from django.contrib.auth.mixins import AccessMixin
 
-from .forms import RegisterUserForm, LoginUserForm
+from .forms import RegisterUserForm, LoginUserForm, BuisnesCreationForm
 
 from django.db import transaction
 from django.contrib.auth.models import User
-from .models import Region
+from .models import Region, Businesse, BuisnessePhoto
 
 from django.views import View
 from django.views.generic import CreateView
 from django.contrib.auth import login, logout
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.decorators import login_required
+
+from django.core.files.uploadedfile import UploadedFile
+
+import json
 
 class LoginRequiredMixin(AccessMixin):
     login_url = reverse_lazy('auth')
@@ -83,6 +88,53 @@ def regionview(request, koatuu):
     }
 
     return render(request, 'mainapp/region.html', data)
+
+@login_required
+def create_business(request):
+    if request.method == 'POST':
+        form = BuisnesCreationForm(request.POST)
+        if form.is_valid():
+            business = form.save(commit=False)
+            business.user = request.user
+            business.save()
+            
+            photos = request.FILES.getlist('photos')
+            for photo in photos:
+                if isinstance(photo, UploadedFile):
+                    BuisnessePhoto.objects.create(
+                        businesse=business,
+                        img=photo
+                    )
+            
+            return redirect('profile')
+    else:
+        form = BuisnesCreationForm()
+    
+    return render(request, 'mainapp/create_business.html', {'form': form})
+
+def adminpanelview(request):
+    if request.user.is_staff:
+
+        try:
+            pending_buisneses = Businesse.objects.filter(status='pending')
+        except:
+            pending_buisneses = []
+
+        data = {
+            'pending_buisneses': pending_buisneses
+        }
+
+        return render(request, 'mainapp/adminpanel.html', data)
+
+def check_username(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        username = data.get('username', None)
+        user = User.objects.filter(username=username).first()
+        if username and user:
+            return JsonResponse({'error': 'This username is already taken.'}, status=200)
+
+        return JsonResponse({'error': ''}, status=200)
 
 def page_not_found(request, exception):
     return render(request, 'mainapp/404.html', exception)

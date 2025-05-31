@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
-
+from .models import *
 
 class RegisterUserForm(UserCreationForm):
     username = forms.CharField(label='Username', widget=forms.TextInput(attrs={'id': 'id_username'}))
@@ -30,3 +30,38 @@ class RegisterUserForm(UserCreationForm):
 class LoginUserForm(AuthenticationForm):
     username = forms.CharField(label='Username', widget=forms.TextInput())
     password = forms.CharField(label='Password', widget=forms.PasswordInput())
+
+
+class BuisnesCreationForm(forms.ModelForm):
+    class Meta:
+        model = Businesse
+        fields = ['region', 'city', 'name', 'description', 'email', 'phone', 'site_page', 'category', 'tags']
+        
+        labels = {
+            'region': 'Регіон',
+            'city': 'Місто',
+            'name': 'Назва',
+            'description': 'Опис',
+            'email': 'Електронна пошта',
+            'phone': 'Телефон',
+            'site_page': 'Веб-сторінка',
+            'category': 'Категорія',
+            'tags': 'Теги'
+        }
+
+        widgets = {
+            'category': forms.Select(attrs={'class': 'form-control'}),
+            'description': forms.Textarea(attrs={'rows': 3, 'class': 'form-control'}),
+            'tags': forms.TextInput(attrs={'class': 'form-control'}),
+            'region': forms.Select(attrs={'class': 'form-control'}),
+            'city': forms.TextInput(attrs={'class': 'form-control'}),
+            'name': forms.TextInput(attrs={'class': 'form-control'}),
+            'email': forms.EmailInput(attrs={'class': 'form-control'}),
+            'phone': forms.TextInput(attrs={'class': 'form-control'}),
+            'site_page': forms.URLInput(attrs={'class': 'form-control'}),
+        }
+
+        required = {
+            'site_page': False,
+            'tags': False,
+        }
