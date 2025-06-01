@@ -2,8 +2,9 @@
 {% load static %}
 
 {% block content %}
-
+<main>
 {% for business in pending_buisneses %}
+<div class="busines_adminpanel">
     <h2>{{ business.name }}   ({{business.user.username}})</h2>
     <p>Опис: {{ business.description }}</p>
     <p>Регіон: {{ business.region }} | Місто: {{ business.city }}</p>
@@ -15,7 +16,7 @@
 
     <p>{{ business.time_create }}</p>
     
-    {% with first_photo=business.buisnessephoto_set.all|first %}
+    {% with first_photo=business.buisnessephoto_set.all %}
         {% if first_photo.img %}
             <img src="{{ first_photo.get_img_url }}" alt="Photo of {{ business.name }}" style="max-width: 200px;">
         {% else %}
@@ -36,7 +37,8 @@
             </button>
         </a>
     </div>
-    
+</div>
+</main>
 {% endfor %}
 
 {% endblock %}

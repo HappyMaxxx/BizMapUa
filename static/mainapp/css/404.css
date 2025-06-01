@@ -1,0 +1,76 @@
+.error-page {
+    background-color: #E2D9A5;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.error-main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    width: 100%;
+}
+
+.error-main h1 {
+    font-size: 64px;
+    color: #2D2D2D;
+    margin-bottom: 10px;
+}
+
+.error-main .subtitle {
+    color: #2D2D2D;
+    font-size: 48px;
+}
+
+.sad-character img {
+    height: auto;
+}
+
+.error-actions {
+    display: flex;
+    gap: 250px;
+}
+
+.error-actions button {
+    padding: 12px 25px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1em;
+    cursor: pointer;
+}
+
+.error-actions .reload-button {
+    background-color: rgba(155, 156, 7, 0.81);
+    color: rgba(40, 44, 11, 0.79);
+    display: flex;
+    align-items: center;
+    font-size: 36px;
+    gap: 8px;
+}
+
+.error-actions .reload-icon {
+    width: 16px;
+    height: 16px;
+    border: 2px solid rgba(40, 44, 11, 0.79);
+    border-radius: 50%;
+    border-top-color: transparent;
+    animation: rotate 1.5s linear infinite;
+}
+.reload-icon:active{
+    border: none;
+}
+
+@keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.error-actions .home-button {
+    background-color: #C6C062;
+    color: rgba(40, 44, 11, 0.79);
+    font-size: 36px;
+}

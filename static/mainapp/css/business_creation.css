@@ -1,0 +1,154 @@
+.create-business-main {
+    background-color: #E2D9A5; /* Approximate background */
+    min-height: 100vh;
+    display: flex;  
+    padding: 20px 0px 20px 150px;  
+}
+.create-business-page {
+    background-color: #E2D9A5; /* Approximate background */
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 20px;
+    gap: 30px;
+}
+
+
+.form-column {
+    flex: 1;
+}
+
+.create-business-form {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    margin-bottom: 5px;
+    color: #282C0B;
+    font-size: 32px;
+    font-family: 'Belleza';
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="tel"],
+.form-group input[type="insta"],
+.form-group textarea,
+.form-group select {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+    background-color: #D2CB7F;
+    width: 509px;
+}
+
+.form-group textarea {
+    min-height: 80px;
+}
+.plus-icon img {
+    width: 125px;
+}
+.create-button {
+    background-color: #A7A84F; 
+    color: #282C0B;
+    width: 85%;
+    height: 200px;
+    border: none;
+    margin-right: 15%;
+    border-radius: 50px;
+    cursor: pointer;
+    font-size: 64px;
+    margin-top: 20px;
+}
+
+.create-button:hover {
+    background-color: #898a45;
+}
+
+.visual-column {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.visual-column .character-image {
+    max-width: 100%;
+    height: auto;
+}
+
+.visual-column .character-image img {
+    display: block;
+    height: auto;
+}
+
+.visual-column .add-photo-button {
+    background-color: rgba(157, 158, 5, 0.24); /* Approximate button color */
+    color: #282C0B;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 32px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.visual-column .add-photo-button .plus-icon {
+    font-size: 1.2em;
+}
+
+.visual-column .instagram-input {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 250px; /* Match form input width roughly */
+}
+
+.visual-column .instagram-input label {
+    margin-bottom: 5px;
+    color: #282C0B;
+    font-size: 32px;
+    font-family: 'Belleza';
+}
+
+.visual-column .instagram-input input[type="text"] {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+    background-color: #D2CB7F;
+    width: 472px;
+}
+
+.create-business-footer {
+    padding: 20px;
+    text-align: center;
+    color: #777;
+}
+
+
+@media (max-width: 768px) {
+    .create-business-main {
+        flex-direction: column;
+    }
+
+    .visual-column {
+        order: -1; 
+        margin-bottom: 30px;
+    }
+}
+input:focus, textarea:focus {
+  outline: none;
+}

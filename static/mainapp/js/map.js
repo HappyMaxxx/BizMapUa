@@ -1,7 +1,7 @@
 var map = L.map('map', {
     center: [48.3794, 31.1656], // Центр України
       zoom: 6,
-      minZoom: 6, // Фіксований масштаб
+      minZoom: 6,
       maxZoom: 6,
       maxBounds: [
         [44.0, 20.0], // Південно-західна межа (розширено вліво)
@@ -37,8 +37,26 @@ var map = L.map('map', {
             }
 
             layer.on('click', function() {
-              var regionCode = feature.properties.name || 'unknown';
+              var regionCode = feature.properties.koatuu || 'unknown';
               window.location.href = '/regions/' + encodeURIComponent(regionCode);
+            });
+
+            layer.on('mouseover', function(e) {
+                layer.setStyle({
+                    color: '#3377ff', 
+                    weight: 4,        
+                    fillOpacity: 0.5 
+                });
+                // layer.openPopup(); 
+            });
+
+            layer.on('mouseout', function(e) {
+                layer.setStyle({
+                    color: '#3388ff', 
+                    weight: 2,       
+                    fillOpacity: 0.2  
+                });
+                // layer.closePopup(); 
             });
           }
         }).addTo(map);

@@ -1,0 +1,115 @@
+body{
+    height: 100%;
+  }
+  main{
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .background {
+    background-color: #7C7D20;
+    width: 500px;
+    height: 650px;
+    border-radius: 50px;
+    display: block;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .form-box {
+      background-color: #D2CB7F;
+      padding: 20px;
+      border-radius: 20px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      width: 400px;
+      height: 600px;
+  }
+  main img{
+    position: absolute;
+    z-index: -1 ; 
+  }
+  main h2 {
+    font-size: 40px;
+    font-weight: bold;
+    color: #000;
+    text-align: center;
+    font-family: 'Belleza';
+  }
+  
+  form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      max-width: 300px; 
+      padding: 20px;
+      border-radius: 8px;
+      margin: 20px auto; 
+  }
+  
+  input[type="email"],
+  input[type="text"],
+  input[type="password"] {
+      padding: 10px;
+      border: none;
+      border-bottom: 2px solid #7C7D20; 
+      background-color: transparent;
+      font-size: 1em;
+      color: #000;
+  }
+  
+  input::placeholder {
+      color: #000;
+  }
+  
+  button[type="submit"] {
+      background-color: #7C7D20; 
+      color: #000;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1.1em;
+      transition: background-color 3s ease-in-out;
+      margin-top: 35px;
+  }
+  
+  button[type="submit"]:hover {
+      background-color: #57581d; 
+  }
+  .login-link{
+    color: #000000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .login-link a{
+    color: #000000;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.1em; 
+  }
+  input:focus {
+    outline: none;
+  }
+
+  .password-container {
+    position: relative;
+    width: 100%;
+}
+
+.password-container input {
+    height: 50px;
+    font-size: 16px;
+    padding-right: 40px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+  .password-eye-icon {
+    position: absolute;
+    right: 10px;
+    top: 42%;
+    cursor: pointer;
+    color: #666;
+}

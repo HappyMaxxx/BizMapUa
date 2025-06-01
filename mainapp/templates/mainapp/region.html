@@ -17,9 +17,33 @@
 </a>
 
 <div class="button3">
-    <button class="button">Всі </button>
-    <button class="button">Всі </button>
-    <button class="button">Всі </button>
+    <a href="{% url 'region' koatuu %}"><button class="button" style="width: 200px;">Очистити</button></a>
+    <button class="button" style="width: 200px;"
+    onclick="filterBusinesses('sort_by', '{% if current_sort == 'popularity_desc' %}popularity_asc{% else %}popularity_desc{% endif %}')">
+        {% if current_sort == 'popularity_desc' %}За популярністю (зрост.){% else %}За популярністю (спад.){% endif %}
+    </button>
+    <select class="button select-button" onchange="filterBusinesses('category', this.value)">
+        <option value="" {% if not category %}selected{% endif %}>Всі категорії</option>
+        {% for cat in categories %}
+            <option value="{{ cat.category|default_if_none:'' }}" {% if category == cat.category %}selected{% endif %}>
+                {{ cat.category|default:"Без категорії" }}
+            </option>
+        {% endfor %}
+    </select>
+    <select class="button select-button" onchange="filterBusinesses('city', this.value)">
+        <option value="" {% if not city %}selected{% endif %}>Всі міста</option>
+        {% for city in cities %}
+            <option value="{{ city.city|default_if_none:'' }}" {% if city.city == city %}selected{% endif %}>
+                {{ city.city|default:"Без міста" }}
+            </option>
+        {% endfor %}
+    </select>
+    <select class="button select-button" onchange="filterBusinesses('tag', this.value)">
+        <option value="" {% if not tag %}selected{% endif %}>Всі теги</option>
+        {% for tag in tags %}
+            <option value="{{ tag }}" {% if tag == tag %}selected{% endif %}>{{ tag }}</option>
+        {% endfor %}
+    </select>
 </div>
 <div class="wraper"> 
 <div class="left-part" style="width: 50%; height: 100%;">
@@ -34,6 +58,7 @@
 <section class="horizontal-slider-section">
 <div class="horizontal-slider">
     {% for business in businesses %}
+    <a href="{% url 'buisnes' business.id %}">
     <div class="slider-item">
         <div class="slider-info">
             <h3>{{ business.name }}</h3>
@@ -51,6 +76,7 @@
         {% endwith %}
         </div>
     </div>
+    </a>
     {% empty %}
     <h2>Упс! Схоже тут ще нікого немає</h2>
     {% endfor %}
@@ -61,9 +87,20 @@
 </main>
 
 <script>
+    function filterBusinesses(filterType, value) {
+        const url = new URL(window.location.href);
+        if (value) {
+            url.searchParams.set(filterType, value);
+        } else {
+            url.searchParams.delete(filterType);
+        }
+        window.location.href = url.toString();
+    }
+</script>
+
+<script>
     $(function () {
         const isAuthenticated = "{{ user.is_authenticated|yesno:'true,false' }}";
-        console.log(isAuthenticated)
         $('.rating').each(function () {
             const $this = $(this);
             const rating = $this.data('rating');

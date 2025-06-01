@@ -87,13 +87,45 @@ def mapview(request):
 
 def regionview(request, koatuu):
     region = Region.objects.get(koatuu=koatuu)
-    buisneses = Businesse.objects.filter(region=region, status='added')
-    count = len(buisneses)
+    businesses = Businesse.objects.filter(region=region, status='added')
+
+    sort_by = request.GET.get('sort_by', '')
+    category = request.GET.get('category', '')
+    city = request.GET.get('city', '')
+    tag = request.GET.get('tag', '')
+
+    if sort_by == 'popularity_desc':
+        businesses = businesses.order_by('-average_rating')
+    elif sort_by == 'popularity_asc':
+        businesses = businesses.order_by('average_rating')
+    if category:
+        businesses = businesses.filter(category=category)
+    if city:
+        businesses = businesses.filter(city=city)
+    if tag:
+        businesses = businesses.filter(tags__contains=tag)
+
+    count = len(Businesse.objects.filter(region=region, status='added'))
+
+    categories = Businesse.objects.filter(region=region, status='added').values('category').distinct()
+    cities = Businesse.objects.filter(region=region, status='added').values('city').distinct()
+    tags = set()
+    for business in businesses:
+        if business.tags:
+            tags.update(tag.strip() for tag in business.tags.split(' '))
 
     data = {
         'region': region,
-        'businesses': buisneses,
+        'businesses': businesses,
         'count': count,
+        'categories': categories,
+        'cities': cities,
+        'tags': tags,
+        'current_sort': sort_by,
+        'category': category,
+        'city': city,
+        'tag': tag,
+        'koatuu': koatuu,
     }
 
     return render(request, 'mainapp/region.html', data)
@@ -115,7 +147,7 @@ def create_business(request):
                         img=photo
                     )
             
-            return redirect('profile')
+            return redirect('home')
     else:
         form = BuisnesCreationForm()
     
@@ -187,10 +219,10 @@ def buisnesview(request, buisnes_id):
         return redirect('404')
     
     data = {
-        'busines': busines
+        'busines': busines,
     }
 
-    return render(request, 'mainapp/buisnes.html')
+    return render(request, 'mainapp/buisnes.html', data)
 
 def check_username(request):
     if request.method == 'POST':
@@ -204,3 +236,6 @@ def check_username(request):
 
 def page_not_found(request, exception):
     return render(request, 'mainapp/404.html', exception)
+
+def server_error(request):
+    return render(request, 'mainapp/404.html', status=500)

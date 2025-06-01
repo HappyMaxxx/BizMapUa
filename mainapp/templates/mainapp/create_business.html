@@ -1,46 +1,148 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% block head %}
+<link rel="stylesheet" href="{% static 'mainapp/css/business_creation.css' %}">
+{% endblock %}
+
 {% block content %}
-<h1>Додати новий бізнес</h1>
-
-{% if form.non_field_errors %}
-    <div class="alert alert-danger" role="alert">
-        {% for error in form.non_field_errors %}
-            <p class="error-message">{{ error }}</p>
-        {% endfor %}
-    </div>
-{% endif %}
-
-<form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    <div class="row">
-        {% for field in form %}
-            <div class="col-md-6 form-group">
-                <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
-                {{ field }}
-                {% if field.errors %}
+<a href="{% url 'home' %}" style="position: absolute; top: 15%; left: 2%; z-index: 2;">
+    <img src="{% static 'mainapp/img/home/strilka.png' %}">
+</a>
+<main class="create-business-main">
+    <div class="create-business-page">
+        <div class="form-column">
+            
+            {% if form.non_field_errors %}
+                <div class="alert alert-danger" role="alert">
+                    {% for error in form.non_field_errors %}
+                        <p class="error-message">{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            
+            <form class="create-business-form" method="post" enctype="multipart/form-data" id="myForm">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="{{ form.region.id_for_label }}">Область</label>
+                    {{ form.region }}
+                    {% if form.region.errors %}
+                        <div class="error-message">
+                            {% for error in form.region.errors %}
+                                <p>{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    <label for="{{ form.city.id_for_label }}">Місто</label>
+                    {{ form.city }}
+                    {% if form.city.errors %}
+                        <div class="error-message">
+                            {% for error in form.city.errors %}
+                                <p>{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    <label for="{{ form.name.id_for_label }}">Назва бізнесу</label>
+                    {{ form.name }}
+                    {% if form.name.errors %}
+                        <div class="error-message">
+                            {% for error in form.name.errors %}
+                                <p>{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    <label for="{{ form.description.id_for_label }}">Опис</label>
+                    {{ form.description }}
+                    {% if form.description.errors %}
+                        <div class="error-message">
+                            {% for error in form.description.errors %}
+                                <p>{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    <label for="{{ form.email.id_for_label }}">Електронна пошта</label>
+                    {{ form.email }}
+                    {% if form.email.errors %}
+                        <div class="error-message">
+                            {% for error in form.email.errors %}
+                                <p>{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    <label for="{{ form.phone.id_for_label }}">Телефон</label>
+                    {{ form.phone }}
+                    {% if form.phone.errors %}
+                        <div class="error-message">
+                            {% for error in form.phone.errors %}
+                                <p>{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    <label for="{{ form.category.id_for_label }}">Категорія</label>
+                    {{ form.category }}
+                    {% if form.category.errors %}
+                        <div class="error-message">
+                            {% for error in form.category.errors %}
+                                <p>{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    <label for="{{ form.tags.id_for_label }}">Теги</label>
+                    {{ form.tags }}
+                    {% if form.tags.errors %}
+                        <div class="error-message">
+                            {% for error in form.tags.errors %}
+                                <p>{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    <input hidden type="file" name="photos" id="photos" class="form-control" multiple accept="image/*">
+                </div>
+            </form>
+        </div>
+        <div class="visual-column">
+            <div class="character-image">
+                <img src="{% static 'mainapp/img/home/business_chelik.png' %}" alt="Персонаж">
+            </div>
+            <div class="add-photo">
+                <button class="add-photo-button btn btn-outline-primary" type="button" onclick="document.getElementById('photos').click();" type="hiden">
+                    <div class="plus-icon">
+                        <img src="{% static 'mainapp/img/home/logo_foto.png' %}" alt="Додати фото">
+                    </div>
+                    Додати фото/логотип
+                </button>
+            </div>
+            <div class="form-group">
+                <label for="{{ form.instagram.id_for_label }}">Instagram</label>
+                {{ form.insta }}
+                {% if form.insta.errors %}
                     <div class="error-message">
-                        {% for error in field.errors %}
+                        {% for error in form.instagram.errors %}
                             <p>{{ error }}</p>
                         {% endfor %}
                     </div>
                 {% endif %}
             </div>
-        {% endfor %}
-        
-        <div class="col-12 form-group">
-            <label for="photos" class="form-label">Фотографії бізнесу</label>
-            <input type="file" name="photos" id="photos" class="form-control" multiple accept="image/*">
         </div>
     </div>
-    
-    <div class="form-group mt-3">
-        <button type="submit" class="btn btn-primary">Створити бізнес</button>
-        <a href="{% url 'profile' %}" class="btn btn-secondary">Скасувати</a>
-    </div>
-</form>
-</div>
+    <button type="submit" class="create-button btn btn-primary" form="myForm">СТВОРИТИ БІЗНЕС</button>
+</main>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 {% endblock %}

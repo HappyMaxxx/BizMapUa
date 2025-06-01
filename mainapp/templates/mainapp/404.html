@@ -1,7 +1,23 @@
 {% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'mainapp/css/404.css' %}">
+{% endblock %}
 
 {% block content %}
-<h1>404</h1>
-
-<p>{{ exception }}</p>
+<main>
+    <div class="error-page">
+<main class="error-main">
+    <h1>О ні! Щось з Мапі не так</h1>
+    <p class="subtitle">Але не хвилюйся - ми вже шукаємо винуватця ;)</p>
+    <div class="sad-character">
+        <img src="{% static 'mainapp/img/home/404.png' %}" alt="Сумний персонаж">
+    </div>
+    <div class="error-actions">
+        <a href="{% url 'home' %}">
+            <button class="home-button">На головну</button>
+        </a>
+    </div>
+</main>
 {% endblock %}
