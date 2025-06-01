@@ -5,61 +5,108 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.css" rel="stylesheet"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.js"></script>
+
+<link rel="stylesheet" href="{% static 'mainapp/css/oblast.css' %}">
 {% endblock %}
 
 {% block content %}
-<p>{{ region.name }}</p>
-<p>{{ region.value }}</p>
-<img src="{{ region.get_img_url }}" alt="">
 
-<p>Кількість бізнесів: {{ count }}</p>
+<main style="padding: 0px;">
+<a href="{% url 'map' %}" style="position: absolute; top: 15%; left: 2%; z-index: 2;">
+    <img src="{% static 'mainapp/img/home/strilka.png' %}">
+</a>
 
-{% for business in businesses %}
-    <p>{{ business.name }}</p>
-    <p>{{ business.description }}</p>
-    <div class="rating" data-rating="{{ business.average_rating|floatformat:1 }}" data-business-id="{{ business.id }}"></div>
-{% endfor %}
+<div class="button3">
+    <button class="button">Всі </button>
+    <button class="button">Всі </button>
+    <button class="button">Всі </button>
+</div>
+<div class="wraper"> 
+<div class="left-part" style="width: 50%; height: 100%;">
+    <div class="map-container">
+        <img src="{{ region.get_img_url }}" alt="{{region.name}}" style="width: 70%; height: auto; margin: auto;">
+    </div>
+    <div class="region-info">
+        <h2>{{ region.name }}</h2>
+        <h3 class="show-businesses-button">Бізнесів: {{ count }}</h3>
+    </div>
+</div>
+<section class="horizontal-slider-section">
+<div class="horizontal-slider">
+    {% for business in businesses %}
+    <div class="slider-item">
+        <div class="slider-info">
+            <h3>{{ business.name }}</h3>
+            <p>{{ business.description }}</p>
+            <p>{{ business.tags }}</p>
+            <div class="rating" data-rating="{{ business.average_rating|floatformat:1 }}" data-business-id="{{ business.id }}"></div>
+        </div>
+        <div class="item-image">
+            {% with first_photo=business.buisnessephoto_set.all|first %}
+            {% if first_photo.img %}
+                <img src="{{ first_photo.get_img_url }}" alt="Photo of {{ business.name }}" style="max-width: 200px;">
+            {% else %}
+                <p>Фотографії відсутні</p>
+            {% endif %}
+        {% endwith %}
+        </div>
+    </div>
+    {% empty %}
+    <h2>Упс! Схоже тут ще нікого немає</h2>
+    {% endfor %}
+    </div>
+</section>
+<img class="region_chelik" src="{% static 'mainapp/img/home/region_chelik.png' %}" alt="">
+</div>
+</main>
 
 <script>
-$(function () {
-    $('.rating').each(function () {
-        const $this = $(this);
-        const rating = $this.data('rating');
-        const businessId = $this.data('business-id');
-        let a = 0
-
-        $this.rateYo({
-            rating: rating,
-            starWidth: "24px",
-            readOnly: false
-        }).on("rateyo.set", function (e, data) {
-            const newRating = data.rating;
-            $.ajax({
-                url: '/api/rate-business/',
-                method: 'POST',
-                data: {
-                    business_id: businessId,
-                    rating: newRating,
-                    csrfmiddlewaretoken: '{{ csrf_token }}' 
-                },
-                success: function (response) {
-                    if (a == 0) {
-                        if (response.success) {
-                            alert('Оцінка успішно збережена!');
-                            $this.rateYo('rating', response.new_average_rating);
-                            
-                        } else {
-                            alert('Помилка: ' + response.error);
-                        }
-                        a += 1;
-                    }
-                },
-                error: function () {
-                    alert('Помилка при відправці оцінки.');
+    $(function () {
+        const isAuthenticated = "{{ user.is_authenticated|yesno:'true,false' }}";
+        console.log(isAuthenticated)
+        $('.rating').each(function () {
+            const $this = $(this);
+            const rating = $this.data('rating');
+            const businessId = $this.data('business-id');
+            let a = 0;
+    
+            $this.rateYo({
+                rating: rating,
+                starWidth: "24px",
+                readOnly: false
+            }).on("rateyo.set", function (e, data) {
+                if (isAuthenticated !== "true") {
+                    alert('Будь ласка, увійдіть, щоб поставити оцінку.');
+                    window.location.href = '{% url "auth" %}';
+                    return;
                 }
+    
+                const newRating = data.rating;
+                $.ajax({
+                    url: '/api/rate-business/',
+                    method: 'POST',
+                    data: {
+                        business_id: businessId,
+                        rating: newRating,
+                        csrfmiddlewaretoken: '{{ csrf_token }}'
+                    },
+                    success: function (response) {
+                        if (a === 0) {
+                            if (response.success) {
+                                alert('Оцінка успішно збережена!');
+                                $this.rateYo('rating', response.new_average_rating);
+                            } else {
+                                alert('Помилка: ' + response.error);
+                            }
+                            a += 1;
+                        }
+                    },
+                    error: function () {
+                        alert('Помилка при відправці оцінки.');
+                    }
+                });
             });
         });
     });
-});
 </script>
 {% endblock %}

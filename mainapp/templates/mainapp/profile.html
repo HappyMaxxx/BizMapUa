@@ -1,12 +1,14 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<main>
 <h1>Profile</h1>
 
 <div class="center_div">
     <p>{{ request.user.username }}</p>
-    <p>{{ request.user.username }}</p>
+    <p>{{ request.user.email }}</p>
 </div>
 
 <a href="{% url 'logout' %}">LogOut</a>
+</main>
 {% endblock %}

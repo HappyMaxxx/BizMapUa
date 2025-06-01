@@ -63,7 +63,10 @@ class LoginUser(LoginView):
         return super().get(request, *args, **kwargs)
 
     def get_success_url(self):
-        return reverse_lazy('profile')
+        next_url = self.request.GET.get('next') or self.request.POST.get('next')
+        if next_url:
+            return next_url
+        return reverse_lazy('home')
 
 
 class LogoutUser(View):

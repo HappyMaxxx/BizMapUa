@@ -15,13 +15,13 @@
 
     <p>{{ business.time_create }}</p>
     
-    {% for photo in business.buisnessephoto_set.all %}
-        {% if photo.img %}
-            <img src="{{ photo.get_img_url }}" alt="Photo of {{ business.name }}" style="max-width: 200px;">
+    {% with first_photo=business.buisnessephoto_set.all|first %}
+        {% if first_photo.img %}
+            <img src="{{ first_photo.get_img_url }}" alt="Photo of {{ business.name }}" style="max-width: 200px;">
+        {% else %}
+            <p>Фотографії відсутні</p>
         {% endif %}
-    {% empty %}
-        <p>Фотографії відсутні</p>
-    {% endfor %}
+    {% endwith %}
 
     <div class="sa_buttons">
         <a href="{% url 'approve_buisnes' bisnes_id=business.id %}" class="btn btn-success">

@@ -2,6 +2,7 @@
 {% load static %}
 
 {% block content %}
+<main>
 <section class="hero">
     <h1><r class="fonts">BizMapUa</r> — знайди, підтримай і стань частиною українського бізнесу</h1>
     <p>Кожен локальний виробник — це частина великої спільноти.</p>
@@ -71,7 +72,7 @@
     </section>
 </section>
 
-        <h2 class="section-title">Популярні на мапі</h2>
+        <h2 class="section-title" style="padding: 0 180px; padding-top: 20px;">Популярні на мапі</h2>
 <section class="popular-on-map">
 <div class="popular-items">
 
@@ -85,7 +86,7 @@
         <img src="{% static 'mainapp/img/home/placeholder_tereveni.png' %}" alt="Tereveni">
     </div>
 </div>
-<div class="popular-item">
+<div class="popular-item" style="background-color: #D4BC22;">
     <div class="text-content">
         <h3>Plyamka_</h3>
         <p class="location">Закарпаття</p>
@@ -102,11 +103,21 @@
 <div class="faq">
 <h2>Часті запитання</h2>
 <ol>
-    <li>Чи справді все безкоштовно?</li>
-    <li>Як створити свій профіль?</li>
-    <li>Чи можна залишати відгуки?</li>
+    <li>
+        Чи справді все безкоштовно?
+        <span class="tooltip-text">Так, реєстрація та основні функції нашої платформи є абсолютно безкоштовними для бізнесів.</span>
+    </li>
+    <li>
+        Як створити свій профіль?
+        <span class="tooltip-text">Щоб створити профіль, натисніть кнопку "Зареєструвати бізнес" у верхній частині сторінки та заповніть необхідну інформацію.</span>
+    </li>
+    <li>
+        Чи можна залишати відгуки?
+        <span class="tooltip-text">Наразі функція залишення відгуків не реалізована, але ми плануємо додати її в майбутньому.</span>
+    </li>
 </ol>
 </div>  
 </div>
 </section>
+</main>
 {% endblock %}
