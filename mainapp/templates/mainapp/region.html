@@ -20,7 +20,7 @@
     <a href="{% url 'region' koatuu %}"><button class="button" style="width: 200px;">Очистити</button></a>
     <button class="button" style="width: 200px;"
     onclick="filterBusinesses('sort_by', '{% if current_sort == 'popularity_desc' %}popularity_asc{% else %}popularity_desc{% endif %}')">
-        {% if current_sort == 'popularity_desc' %}За популярністю (зрост.){% else %}За популярністю (спад.){% endif %}
+        {% if current_sort == 'popularity_desc' %}За популярністю (спад.){% elif current_sort == 'popularity_asc' %}За популярністю (зрост.){% else %}За популярністю{% endif %}
     </button>
     <select class="button select-button" onchange="filterBusinesses('category', this.value)">
         <option value="" {% if not category %}selected{% endif %}>Всі категорії</option>

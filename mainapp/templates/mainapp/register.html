@@ -16,7 +16,7 @@
     <div class="background">
   <div class="form-box">
     <h2>Реєстрація</h2>
-    <form method="post" id="loginForm">
+    <form method="post" id="registerForm">
       {% csrf_token %}
 
       {% for field in form %}
@@ -59,7 +59,6 @@
         const togglePasswordConfirm = document.getElementById('togglePasswordConfirm');
         const usernameInput = document.getElementById('id_username');
         const usernameError = document.getElementById('id_username-error');
-        console.log('usernameInput:', usernameInput);
 
         form.addEventListener('keydown', function(event) {
             if (event.key === 'Enter') {

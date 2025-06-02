@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<a href="{% url 'profile' %}" style="position: absolute; top: 15%; left: 2%; z-index: 2;">
+    <img src="{% static 'mainapp/img/home/strilka.png' %}">
+</a>
+
+<main class="container">
+    <div class="content" style="display: flex; flex-direction: column; align-items: center;">
+        <h1 style="margin-bottom: 1rem;">Мої Бізнеси</h1>
+
+        {% for buisnes in buisneses %}
+        <div class="busines_adminpanel" style="display: flex; justify-content: space-between; align-items: flex-start; gap: 20px; margin-bottom: 2rem; max-width: 800px; width: 100%; border: 1px solid #ccc; border-radius: 10px; padding: 1rem;">
+            <div style="flex: 1;">
+                <h2>{{ buisnes.name }}</h2>
+                <p>Опис: {{ buisnes.description }}</p>
+                <p>Регіон: {{ buisnes.region }} | Місто: {{ buisnes.city }}</p>
+                <p>Пошта: {{ buisnes.email }} | Телефон: {{ buisnes.phone }}</p>
+                {% if buisnes.site_page %} <p>Сайт: {{ buisnes.site_page }}</p> {% endif %}
+                <p>Категорія: {{ buisnes.category }}</p>
+                <p>Теги: {{ buisnes.tags }}</p>
+                <p>{{ buisnes.time_create }}</p>
+                <p>Status: {{ buisnes.status }}</p>
+            </div>
+
+            <div style="flex-shrink: 0;">
+                {% with first_photo=buisnes.buisnessephoto_set.all|first %}
+                    {% if first_photo.img %}
+                        <img src="{{ first_photo.get_img_url }}" alt="Photo of {{ buisnes.name }}" style="max-width: 200px; border-radius: 8px;">
+                    {% else %}
+                        <p>Фотографії відсутні</p>
+                    {% endif %}
+                {% endwith %}
+            </div>
+        </div>
+        {% empty %}
+        <p>Ой, здаєтсья тут ще нічого немає. Можливо маєш ідеї?</p>
+        {% endfor %}
+    </div>
+</main>
+{% endblock %}

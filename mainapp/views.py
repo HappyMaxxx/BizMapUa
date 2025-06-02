@@ -66,7 +66,7 @@ class LoginUser(LoginView):
         next_url = self.request.GET.get('next') or self.request.POST.get('next')
         if next_url:
             return next_url
-        return reverse_lazy('home')
+        return reverse_lazy('profile')
 
 
 class LogoutUser(View):
@@ -223,6 +223,19 @@ def buisnesview(request, buisnes_id):
     }
 
     return render(request, 'mainapp/buisnes.html', data)
+
+def my_bisneses(request):
+    try:
+        buisneses = Businesse.objects.filter(user=request.user)
+    except:
+        buisneses = []
+
+
+    data = {
+        'buisneses': buisneses
+    }
+
+    return render(request, 'mainapp/my_profiles.html', data)
 
 def check_username(request):
     if request.method == 'POST':

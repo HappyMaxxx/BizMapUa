@@ -14,13 +14,15 @@
     <div class="business-profile-page">
     <main class="profile-main">
         <section class="profile-info">
-            <h1>{{ busines.name }}</h1>
-        </section>
-        {% if busines.insta %}
-            <a href="{{ busines.insta }}"></a>
-            <div class="social-icon"><img src="{% static 'mainapp/img/home/instagram.png' %}" alt=""></div>
+            <h1>{{ busines.name }}</h1>{% if busines.insta %}
+            <a href="{{ busines.insta }}">
+            <div class="social-icon" style="margin-top: 40px; margin-left: 5%;">
+                <img src="{% static 'mainapp/img/home/instagram.png' %}" alt="">
+            </div>
             </a>
-        {% endif %}
+            {% endif %}
+        </section>
+
         <section class="gallery">
             {% with photos=busines.buisnessephoto_set.all %}
                 {% if photos %}

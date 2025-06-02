@@ -26,3 +26,9 @@ a {
     flex-direction: column;
     position: relative;
 }
+
+.errorlist {
+    color: red;
+    text-decoration: none;
+    list-style-type: none;
+}
